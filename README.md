@@ -2,6 +2,7 @@
 
 Based on the awesome [Flatpickr](https://flatpickr.js.org/) library.
 
+![](screenshots/dev-example.png)
 
 ### Develop
 
