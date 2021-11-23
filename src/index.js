@@ -6,7 +6,7 @@ export default {
     description: 'Alternative Date Picker',
     icon: 'today',
     component: InterfaceComponent,
-    types: ['datetime', 'timestamp', 'date'],
+    types: ['dateTime', 'timestamp', 'date'],
     group: 'selection',
     options: [
         {
