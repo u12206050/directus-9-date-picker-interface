@@ -29,7 +29,7 @@ export default {
     },
     enableTime: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     use24: {
       type: Boolean,
