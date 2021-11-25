@@ -29,7 +29,7 @@ export default {
     },
     enableTime: {
       type: Boolean,
-      default: true,
+      default: false,
     },
     use24: {
       type: Boolean,
@@ -56,7 +56,7 @@ export default {
         return new Date(this.value)
       },
       set (value) {
-        this.$emit('input', value)
+        this.$emit('input', !!value ? value : null)
       }
     },
     fpConfig () {

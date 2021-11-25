@@ -18,7 +18,7 @@ export default {
                 interface: 'boolean',
             },
             schema: {
-                default_value: true,
+                default_value: false,
             },
         },
         {
@@ -28,6 +28,17 @@ export default {
             meta: {
                 width: 'half',
                 interface: 'boolean',
+                hidden: true,
+                conditions: [
+                    {
+                        rule: {
+                            enableTime: {
+                                _eq: true
+                            }
+                        },
+                        hidden: false
+                    }
+                ],
             },
             schema: {
                 default_value: true,
@@ -40,6 +51,17 @@ export default {
             meta: {
                 width: 'half',
                 interface: 'boolean',
+                hidden: true,
+                conditions: [
+                    {
+                        rule: {
+                            enableTime: {
+                                _eq: true
+                            }
+                        },
+                        hidden: false
+                    }
+                ],
             },
             schema: {
                 default_value: false,
