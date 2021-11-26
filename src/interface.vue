@@ -59,9 +59,7 @@ export default {
   computed: {
     date: {
       get () {
-        if (! this.value) return null;
-
-        return new Date(this.value)
+        return this.value??null;
       },
       set (value) {
         this.$emit('input', !!value ? value : null)
@@ -77,12 +75,39 @@ export default {
       const { enableTime, enableSeconds, disabled, minDate, maxDate, type, use24 } = this
       const timeFormat = 'H:i' + (enableSeconds ? ':S' : '')
       const isTime = type === 'time'
+      
+      let dFormat=''
+      let aFormat=''
+      
+      let formatOfDate='F J, Y'
+      //let formatOfDate='d.m.Y'
+
+      switch(type){
+        case "dateTime":
+           dFormat = 'Y-m-dTH:i:S'
+           aFormat = formatOfDate+ (enableTime ? ' ' + timeFormat : '')
+        break;
+        case "time":
+           dFormat = 'H:i:S'
+           aFormat = timeFormat
+        break;
+        case "date":
+           dFormat = 'Y-m-d'
+           aFormat = formatOfDate
+        break;
+        case "timestamp":
+           dFormat = 'Z'
+           aFormat = formatOfDate+ (enableTime ? ' ' + timeFormat : '')
+        break;
+      }
+      
+      
       return {
-        altFormat: 'F J, Y' + (enableTime ? ' ' + timeFormat : ''),
-        altInput: !isTime,
+        altFormat: aFormat,
+        altInput: true,
         allowInput: !disabled,
         clickOpens: !disabled,
-        dateFormat: isTime ? timeFormat : 'Z',
+        dateFormat: dFormat,
 
         enableTime: isTime || enableTime,
         enableSeconds,
