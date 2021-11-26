@@ -70,11 +70,11 @@ export default {
         clickOpens: !disabled,
         dateFormat: isTime ? timeFormat : 'Z',
 
-        enableTime,
+        enableTime: isTime || enableTime,
         enableSeconds,
 
         noCalendar: isTime,
-        time_24hr: use24
+        time_24hr: isTime || use24
       }
     }
   },
