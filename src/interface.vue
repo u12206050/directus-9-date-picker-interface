@@ -12,10 +12,12 @@
 
 <script>
 import flatPickr from 'vue-flatpickr-component';
+import _get from 'lodash/get';
 import './styles.css';
 
 export default {
   emits: ['input'],
+  inject: ['values'],
   name: "DatePicker",
   props: {
     type: String,
@@ -39,6 +41,12 @@ export default {
       type: Boolean,
       default: false,
     },
+    min: {
+      type: String,
+    },
+    max: {
+      type: String,
+    }
   },
   components: {
     flatPickr
@@ -59,8 +67,14 @@ export default {
         this.$emit('input', !!value ? value : null)
       }
     },
+    minDate () {
+      return this.min ? _get(this.values.value, this.min) : ''
+    },
+    maxDate () {
+      return this.max ? _get(this.values.value, this.max) : ''
+    },
     fpConfig () {
-      const { enableTime, enableSeconds, disabled, type, use24 } = this
+      const { enableTime, enableSeconds, disabled, minDate, maxDate, type, use24 } = this
       const timeFormat = 'H:i' + (enableSeconds ? ':S' : '')
       const isTime = type === 'time'
       return {
@@ -73,8 +87,11 @@ export default {
         enableTime: isTime || enableTime,
         enableSeconds,
 
+        minDate,
+        maxDate,
+
         noCalendar: isTime,
-        time_24hr: isTime || use24
+        time_24hr: use24,
       }
     }
   },

@@ -10,6 +10,22 @@ export default {
     group: 'selection',
     options: [
         {
+            field: 'min',
+            name: 'Min date field name',
+            type: 'string',
+            meta: {
+                width: 'half',
+            },
+        },
+        {
+            field: 'max',
+            name: 'Max date field name',
+            type: 'string',
+            meta: {
+                width: 'half',
+            },
+        },
+        {
             field: 'enableTime',
             name: 'Enable Time',
             type: 'boolean',

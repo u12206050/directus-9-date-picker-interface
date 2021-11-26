@@ -21,10 +21,29 @@
       <br>
 
       <div class="label type-label disabled" data-v-792c5ca7 data-v-5157b788>
-        <span class="field-name" data-v-792c5ca7>Date</span>
+        <span class="field-name" data-v-792c5ca7>From Date</span>
       </div>
       <div class="interface" data-v-175a2f1a data-v-5157b788>
-        <DatePicker :disabled="disabled" :enable-time="enableTime" :use24="use24" :enable-seconds="enableSeconds" :value="date" @input="v => date = v"></DatePicker>
+        <DatePicker :disabled="disabled"
+                    :enable-time="enableTime"
+                    :use24="use24"
+                    :enable-seconds="enableSeconds"
+                    max="toDate"
+                    :value="fromDate" @input="v => fromDate = v">
+        </DatePicker>
+      </div>
+      <br>
+      <div class="label type-label disabled" data-v-792c5ca7 data-v-5157b788>
+        <span class="field-name" data-v-792c5ca7>To Date</span>
+      </div>
+      <div class="interface" data-v-175a2f1a data-v-5157b788>
+        <DatePicker :disabled="disabled"
+                    :enable-time="enableTime"
+                    :use24="use24"
+                    :enable-seconds="enableSeconds"
+                    min="fromDate"
+                    :value="toDate" @input="v => toDate = v">
+        </DatePicker>
       </div>
     </div>
   </div>
@@ -33,18 +52,29 @@
 <script>
 import DatePicker from "../interface.vue";
 import './directus_styles.css'
+import {ref} from "vue";
 
 export default {
   name: "wrapper.vue",
   components: {DatePicker},
   data () {
     return {
-      date: new Date().toISOString(),
+      fromDate: new Date().toISOString(),
+      toDate: new Date().toISOString(),
       disabled: false,
       enableTime: false,
       use24: false,
       enableSeconds: false,
       dark: false,
+    }
+  },
+  provide () {
+    const { fromDate, toDate } = this
+    return {
+      values: ref({
+        fromDate,
+        toDate
+      })
     }
   },
   watch: {

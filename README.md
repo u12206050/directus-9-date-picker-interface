@@ -4,6 +4,10 @@ Based on the awesome [Flatpickr](https://flatpickr.js.org/) library.
 
 ![](screenshots/dev-example.png)
 
+### Configuration
+
+Supports min and max field dates so you can have a `from` and `to` setup.
+
 ### Develop
 
 All files in `src/DevComps` are purely for development purposes,
