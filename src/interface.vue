@@ -1,7 +1,7 @@
 <template>
-  <v-input :fullWidth="true" :clickable="true" :disabled="disabled" v-model="value">
+  <v-input :fullWidth="true" :clickable="true" v-model="value" :disabled="disabled">
     <template v-slot:input>
-      <flat-pickr v-if="renderFlatpickr" v-model="date" class="date-picker" :config="fpConfig"/>
+      <flat-pickr v-model="date" class="date-picker" :config="fpConfig"/>
     </template>
 
     <template v-if="!disabled" #append>
@@ -46,15 +46,10 @@ export default {
     },
     max: {
       type: String,
-    }
+    },
   },
   components: {
     flatPickr
-  },
-  data () {
-    return {
-      renderFlatpickr: true
-    }
   },
   computed: {
     date: {
@@ -65,27 +60,21 @@ export default {
         this.$emit('input', !!value ? value : null)
       }
     },
-    minDate () {
-      return this.min ? _get(this.values.value, this.min) : ''
-    },
-    maxDate () {
-      return this.max ? _get(this.values.value, this.max) : ''
-    },
     fpConfig () {
-      const { enableTime, enableSeconds, disabled, minDate, maxDate, type, use24 } = this
+      const { enableTime, enableSeconds, disabled, min, max, type, use24, values } = this
+      const minDate = min ? _get(values.value, min) : ''
+      const maxDate = max ? _get(values.value, max) : ''
 
       const formatOfDate = 'F J, Y'
       const timeFormat = 'H:i' + (enableSeconds ? ':S' : '')
       const isTime = type === 'time'
       
       let dFormat = ''
-      let aFormat = ''
+      let aFormat = formatOfDate + (enableTime ? ' ' + timeFormat : '')
 
-
-      switch(type){
+      switch(type) {
         case "dateTime":
            dFormat = 'Y-m-dTH:i:S'
-           aFormat = formatOfDate + (enableTime ? ' ' + timeFormat : '')
         break;
         case "time":
            dFormat = 'H:i:S'
@@ -97,7 +86,6 @@ export default {
         break;
         case "timestamp":
            dFormat = 'Z'
-           aFormat = formatOfDate + (enableTime ? ' ' + timeFormat : '')
         break;
       }
 
@@ -116,18 +104,9 @@ export default {
 
         noCalendar: isTime,
         time_24hr: use24,
-      }
-    }
-  },
-  watch: {
-    fpConfig () {
-      // Remove Flatpickr from the DOM
-      this.renderFlatpickr = false;
 
-      this.$nextTick(() => {
-        // Add the component back in
-        this.renderFlatpickr = true;
-      });
+        static: true,
+      }
     }
   }
 }
@@ -136,7 +115,7 @@ export default {
 <style>
 .date-picker {
   flex-grow: 1;
-  width: 60px;
+  width: 100%;
   height: 100%;
   padding: var(--input-padding);
   padding-right: 0;
@@ -146,6 +125,4 @@ export default {
   border: none;
   appearance: none;
 }
-
-
 </style>

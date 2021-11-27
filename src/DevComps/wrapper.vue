@@ -24,10 +24,8 @@
         <span class="field-name" data-v-792c5ca7>From Date</span>
       </div>
       <div class="interface" data-v-175a2f1a data-v-5157b788>
-        <DatePicker :disabled="disabled"
-                    :enable-time="enableTime"
-                    :use24="use24"
-                    :enable-seconds="enableSeconds"
+        <DatePicker v-if="renderFlatpickr"
+                    v-bind="settings"
                     max="toDate"
                     :value="fromDate" @input="v => fromDate = v">
         </DatePicker>
@@ -37,10 +35,8 @@
         <span class="field-name" data-v-792c5ca7>To Date</span>
       </div>
       <div class="interface" data-v-175a2f1a data-v-5157b788>
-        <DatePicker :disabled="disabled"
-                    :enable-time="enableTime"
-                    :use24="use24"
-                    :enable-seconds="enableSeconds"
+        <DatePicker v-if="renderFlatpickr"
+                    v-bind="settings"
                     min="fromDate"
                     :value="toDate" @input="v => toDate = v">
         </DatePicker>
@@ -66,6 +62,8 @@ export default {
       use24: false,
       enableSeconds: false,
       dark: false,
+
+      renderFlatpickr: true,
     }
   },
   provide () {
@@ -77,7 +75,29 @@ export default {
       })
     }
   },
+  computed: {
+    settings () {
+      const { disabled, enableTime, use24, enableSeconds } = this
+      return {
+        disabled,
+        enableTime,
+        enableSeconds,
+        use24
+      }
+    }
+  },
   watch: {
+    settings (after, before) {
+      if (JSON.stringify(after) !== JSON.stringify(before)) {
+        // Remove Flatpickr from the DOM
+        this.renderFlatpickr = false;
+
+        this.$nextTick(() => {
+          // Add the component back in
+          this.renderFlatpickr = true;
+        });
+      }
+    },
     dark: {
       immediate: true,
       handler (dark) {
