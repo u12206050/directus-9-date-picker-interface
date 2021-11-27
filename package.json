@@ -1,9 +1,22 @@
 {
-  "name": "date-picker",
-  "version": "1.1.0",
+  "name": "directus-date-picker-interface",
+  "version": "1.1.1",
   "scripts": {
     "start": "vite",
-    "build": "npx directus-extension build"
+    "build": "npx directus-extension build",
+    "prepare": "npm run build && cp README.md ./dist/"
+  },
+  "keywords": [
+    "directus",
+    "direcuts9",
+    "extension",
+    "interface",
+    "date-picker"
+  ],
+  "files": ["dist/*.js", "dist/**/&.js", "dist/README.md"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/u12206050/directus-9-date-picker-interface"
   },
   "dependencies": {
     "vue": "^3.2.16",
