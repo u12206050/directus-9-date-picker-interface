@@ -68,7 +68,7 @@ export default {
       const formatOfDate = 'F J, Y'
       const timeFormat = 'H:i' + (enableSeconds ? ':S' : '')
       const isTime = type === 'time'
-      
+
       let dFormat = ''
       let aFormat = formatOfDate + (enableTime ? ' ' + timeFormat : '')
 
@@ -88,7 +88,6 @@ export default {
            dFormat = 'Z'
         break;
       }
-
       return {
         altFormat: aFormat,
         altInput: true,
