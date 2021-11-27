@@ -78,4 +78,4 @@ typings/
 .idea
 .vscode
 
-./dist/
+dist

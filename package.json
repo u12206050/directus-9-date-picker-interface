@@ -16,7 +16,10 @@
   "files": ["dist/*.js", "dist/**/&.js", "dist/README.md"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/u12206050/directus-9-date-picker-interface"
+    "url": "https://github.com/u12206050/directus-9-date-picker-interface.git"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
   },
   "dependencies": {
     "vue": "^3.2.16",
